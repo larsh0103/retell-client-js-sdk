@@ -88,7 +88,8 @@ export class RetellWebClient extends EventEmitter {
     });
 
     this.liveClient.on("audio", (audio: Uint8Array) => {
-      this.playAudio(audio);
+      // this.playAudio(audio);
+      console.log("something");
     });
 
     this.liveClient.on("disconnect", () => {
