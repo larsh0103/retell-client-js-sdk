@@ -88,8 +88,7 @@ export class RetellWebClient extends EventEmitter {
     });
 
     this.liveClient.on("audio", (audio: Uint8Array) => {
-      // this.playAudio(audio);
-      console.log("something");
+      this.playAudio(audio);
     });
 
     this.liveClient.on("disconnect", () => {
@@ -240,10 +239,10 @@ export class RetellWebClient extends EventEmitter {
     } else {
       const float32Data = convertUint8ToFloat32(audio);
       this.audioData.push(float32Data);
-      if (!this.isTalking) {
-        this.isTalking = true;
-        this.emit("agentStartTalking");
-      }
+      // if (!this.isTalking) {
+      //   this.isTalking = true;
+      //   this.emit("agentStartTalking");
+      // }
     }
   }
 }
