@@ -234,15 +234,13 @@ export class RetellWebClient extends EventEmitter {
   }
 
   private playAudio(audio: Uint8Array): void {
-    if (this.isAudioWorkletSupported()) {
-      this.audioNode.port.postMessage(audio);
-    } else {
-      const float32Data = convertUint8ToFloat32(audio);
-      this.audioData.push(float32Data);
-      // if (!this.isTalking) {
-      //   this.isTalking = true;
-      //   this.emit("agentStartTalking");
-      // }
-    }
-  }
+    // Instead of automatically playing audio, store or log it, or perform another action
+    console.log("Audio received but not played automatically");
+
+    // You can also store the audio data in an array or similar structure if you want to access it later
+    // For example, you might want to offer a method to manually trigger playback
+    const float32Data = convertUint8ToFloat32(audio);
+    this.audioData.push(float32Data);
+}
+
 }
