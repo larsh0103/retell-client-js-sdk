@@ -235,15 +235,15 @@ export class RetellWebClient extends EventEmitter {
 
   private playAudio(audio: Uint8Array): void {
     // Convert the incoming Uint8Array to Float32Array if necessary
-    const float32Data = convertUint8ToFloat32(audio);
-    // Potentially process the data or prepare it for emission
-    this.audioData.push(float32Data);
-    if (!this.isTalking) {
-        this.isTalking = true;
-        this.emit("agentStartTalking");
-    }
+    // const float32Data = convertUint8ToFloat32(audio);
+    // // Potentially process the data or prepare it for emission
+    // this.audioData.push(float32Data);
+    // if (!this.isTalking) {
+    //     this.isTalking = true;
+    //     this.emit("agentStartTalking");
+    // }
 
-    // Emit the audio data for external use
+    // // Emit the audio data for external use
     this.emit("audio", audio);
 
     // Ensure no output is connected to actually play the sound
