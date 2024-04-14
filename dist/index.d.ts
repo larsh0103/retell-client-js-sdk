@@ -13,6 +13,9 @@ export declare class RetellWebClient extends EventEmitter {
     private audioNode;
     private customEndpoint;
     private captureNode;
+    private audioData;
+    private audioDataIndex;
+    private isTalking;
     constructor(customEndpoint?: string);
     startConversation(startConversationConfig: StartConversationConfig): Promise<void>;
     stopConversation(): void;
