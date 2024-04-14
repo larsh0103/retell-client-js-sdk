@@ -1,4 +1,3 @@
-// retell-client-sdk.ts
 import {
   AudioWsClient,
   convertFloat32ToUint8,
@@ -87,9 +86,9 @@ export class RetellWebClient extends EventEmitter {
       this.emit("conversationStarted");
     });
 
-    this.liveClient.on("audio", (audio: Uint8Array) => {
-      this.playAudio(audio);
-    });
+    // this.liveClient.on("audio", (audio: Uint8Array) => {
+    //   this.playAudio(audio);
+    // });
 
     this.liveClient.on("disconnect", () => {
       this.emit("disconnect");
@@ -172,9 +171,9 @@ export class RetellWebClient extends EventEmitter {
           // capture or playback
           let eventName = data[0];
           if (eventName === "capture") {
-            this.liveClient?.send(data[1]);
+            // this.liveClient?.send(data[1]);
           } else if (eventName === "playback") {
-            this.emit("audio", data[1]);
+            // this.emit("audio", data[1]);
           }
         } else {
           if (data === "agent_stop_talking") {
@@ -187,7 +186,7 @@ export class RetellWebClient extends EventEmitter {
 
       const source = this.audioContext.createMediaStreamSource(this.stream);
       source.connect(this.audioNode);
-      this.audioNode.connect(this.audioContext.destination);
+      // this.audioNode.connect(this.audioContext.destination);
     } else {
       const source = this.audioContext.createMediaStreamSource(this.stream);
       this.captureNode = this.audioContext.createScriptProcessor(2048, 1, 1);
@@ -197,8 +196,8 @@ export class RetellWebClient extends EventEmitter {
         if (this.isCalling) {
           const pcmFloat32Data =
             audioProcessingEvent.inputBuffer.getChannelData(0);
-          const pcmData = convertFloat32ToUint8(pcmFloat32Data);
-          this.liveClient.send(pcmData);
+          // const pcmData = convertFloat32ToUint8(pcmFloat32Data);
+          // this.liveClient.send(pcmData);
 
           // Playback here
           const outputBuffer = audioProcessingEvent.outputBuffer;
@@ -215,7 +214,7 @@ export class RetellWebClient extends EventEmitter {
             }
           }
 
-          this.emit("audio", convertFloat32ToUint8(outputChannel));
+          // this.emit("audio", convertFloat32ToUint8(outputChannel));
           if (!this.audioData.length && this.isTalking) {
             this.isTalking = false;
             this.emit("agentStopTalking");
@@ -223,7 +222,7 @@ export class RetellWebClient extends EventEmitter {
         }
       };
       source.connect(this.captureNode);
-      this.captureNode.connect(this.audioContext.destination);
+      // this.captureNode.connect(this.audioContext.destination);
     }
   }
 
@@ -234,15 +233,7 @@ export class RetellWebClient extends EventEmitter {
   }
 
   private playAudio(audio: Uint8Array): void {
-    if (this.isAudioWorkletSupported()) {
-      this.audioNode.port.postMessage(audio);
-    } else {
-      const float32Data = convertUint8ToFloat32(audio);
-      this.audioData.push(float32Data);
-      if (!this.isTalking) {
-        this.isTalking = true;
-        this.emit("agentStartTalking");
-      }
-    }
+    // This function now does nothing or just logs the audio data.
+    console.log("Playback disabled", audio);
   }
 }
