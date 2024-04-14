@@ -234,15 +234,15 @@ export class RetellWebClient extends EventEmitter {
   }
 
   private playAudio(audio: Uint8Array): void {
-    if (this.isAudioWorkletSupported()) {
-      this.audioNode.port.postMessage(audio);
-    } else {
+    // if (this.isAudioWorkletSupported()) {
+    //   this.audioNode.port.postMessage(audio);
+    // } else {
       const float32Data = convertUint8ToFloat32(audio);
       this.audioData.push(float32Data);
       if (!this.isTalking) {
         this.isTalking = true;
         this.emit("agentStartTalking");
       }
-    }
+    // }
   }
 }
