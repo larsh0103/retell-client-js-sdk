@@ -92,6 +92,7 @@ export class RetellWebClient extends EventEmitter {
 
     if (this.isAudioWorkletSupported()) {
       console.log("Setting up Audio Worklet");
+      console.log("getting some fucking shit started");
       const blob = new Blob([workletCode], { type: "application/javascript" });
       const blobURL = URL.createObjectURL(blob);
       await this.audioContext.audioWorklet.addModule(blobURL);
